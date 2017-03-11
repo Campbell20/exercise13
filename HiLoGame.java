@@ -148,6 +148,8 @@ public class HiLoGame {
     }
 
     /*
+
+    GOTTA FIGURE OUT THE PROGRESS BAR BULLSHIT
     public int Percent() {
         return intPercent;
     }
