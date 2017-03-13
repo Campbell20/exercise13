@@ -3,7 +3,6 @@ package com.example;
 import java.util.Random;
 import java.util.Scanner;
 
-
 /*
 * Name: John Campbell
 * Section: COSC/ITSE 
@@ -14,24 +13,27 @@ import java.util.Scanner;
 */
 
 public class HiLoGame {
-    private String strInput = "Y";
-    private int intRoundCounter;
-    private int intWinRoundCounter = 0;
-    private int intLoseRoundCounter = 0;
-    private int intCorrectNumber;
-    private int intHighestNumberToGuess = 5;
-    private int intGuessCounter = 0;
-    private int intPlayerCurrentGuess;
-    int intMaxGuessesAllowed = 5;
-    private Random objRandomNumber = new Random();
-    private ProgressBar objProgress = new ProgressBar();
-    private Scanner objStrOrIntInput = new Scanner(System.in);
-    private Scanner objInput = new Scanner(System.in);
+    private String strInput = "Y"; //String style input variable
+
+    private int intRoundCounter; //a counter for each of the rounds
+    private int intWinRoundCounter = 0; // a counter for each win the player gets
+    private int intLoseRoundCounter = 0; // a counter for each loss the player gets
+    private int intGuessCounter = 0;  // a counter for the amount of guesses
+    int intMaxGuessesAllowed = 10; // how many guesses does the player get? ADJUST ProgressBar.java as well!!!
+    private int intPlayerCurrentGuess; // player's current guessed number
+    private int intCorrectNumber;  // the variable for the number the player needs to guess
+    private int intHighestNumberToGuess = 100; // the highest number the random number generator will create
+
+    private Random objRandomNumber = new Random(); // random number generator for number to guess
+    private ProgressBar objProgress = new ProgressBar(); // progess bar
+    private RandomComments objComments = new RandomComments(); // for funny comments
+    private Scanner objStrOrIntInput = new Scanner(System.in); //input command for string or int
+    private Scanner objInput = new Scanner(System.in); //our input command for everything else
 
 
     // constructor for the game
     public HiLoGame()  {
-         GameRules();
+         StartGame();
     }
 
     //sets the number the player has to guess
@@ -45,8 +47,8 @@ public class HiLoGame {
         return intCorrectNumber;
     }
 
-    // game rules for Hi-Lo
-    private void GameRules() {
+    // starts the game
+    private void StartGame() {
         System.out.println("\n" +
                 "\t\t*******************************\n" +
                 "\t\t*          Hi-Lo              *\n" +
@@ -77,28 +79,31 @@ public class HiLoGame {
                StartRound();
            }
        }
-        //  TimeUnit.SECONDS.sleep(1);
     }
 
     // starts the round
     private void StartRound()  {
-        intGuessCounter = 0;
-        // reset the progress bar
-        objProgress.ResetBar();
-        //adds 1 more to round counter
-        intRoundCounter++;
+        intGuessCounter = 0;  // resets the guess counter
+        objProgress.ResetBar(); //resets the progress bar
+        intRoundCounter++; //adds +1 to round counter
 
-       // adding a bit of space between rules/objectives/etc, and game start
+       // adding a bit of space between anything before round start and text below
         System.out.println("");
         System.out.println("");
-        // letting the player know the program set a random number for them and that they can start the game
+
+        // letting the player know the program set a random number for them and that they can start the round
         System.out.println("Setting the number to guess...");
         //generates and sets a random number
         CorrectNumber(CorrectNumber());
-        // time out for fun
-        // TimeUnit.SECONDS.sleep(2);
+
         System.out.println("Number set. Can you guess it? Good luck!");
         System.out.println("Round " + intRoundCounter + " Begin!\n");
+
+        //resetting game stats
+        System.out.println("Game Stats: ");
+        System.out.println("Round Wins: " + intWinRoundCounter + " Round Losses: " + intLoseRoundCounter);
+        System.out.println("Life Bar: 10 [XXXXXXXXXX]");
+        // goto next function
         RunRound();
     }
 
@@ -110,22 +115,21 @@ public class HiLoGame {
             //System.out.println("Guessed Counter: " + intGuessCounter);
             //System.out.println("Correct Number to Guess: " + intCorrectNumber);
 
-            ToManyGuessesEndRound();
-            PlayerCurrentGuess();
+
+            ToManyGuessesEndRound(); // did the player burn up all his guesses? This checks that...
+            PlayerCurrentGuess();  // What is the player's current guess?
+
             // checks the value of the player's guess vs the correct number and gives the player some hints or
             // tells them they won. I'd like to adjust this to have random print lines.
             if (intPlayerCurrentGuess < intCorrectNumber) {
-                System.out.println("You're to low! \n");
-                System.out.println("Game Stats: ");
-                System.out.println("Round Wins: " + intWinRoundCounter + " Round Losses: " + intLoseRoundCounter);
-                System.out.println("Life Bar: " + objProgress.RenderBar());
+                System.out.println(objComments.GetAComment() + " You're to low! \n" +
+                        "Try a higher number.\n");
+                PlayerStats();
                 intGuessCounter++;
-                //objPlayer.CurrentGuess();
             } else if (intPlayerCurrentGuess > intCorrectNumber) {
-                System.out.println("You're to high! \n");
-                System.out.println("Game Stats: ");
-                System.out.println("Round Wins: " + intWinRoundCounter + " Round Losses: " + intLoseRoundCounter);
-                System.out.println("Life Bar: " + objProgress.RenderBar());
+                System.out.println(objComments.GetAComment() + " You're to high! \n" +
+                        "Try a lower number.\n");
+                PlayerStats();
                 intGuessCounter++;
             } else if (intPlayerCurrentGuess == intCorrectNumber) {
                 intGuessCounter++;
@@ -167,7 +171,7 @@ public class HiLoGame {
         strInput = objInput.next().toUpperCase();
         System.out.println(strInput);
         if (strInput.equals("Y")) {
-            GameRules();
+            StartRound();
         } else
             EndGame();
     }
@@ -203,6 +207,12 @@ public class HiLoGame {
             System.out.println("This automatically ended the round for you.");
             EndRound();
         }
+    }
+
+    private void PlayerStats(){
+        System.out.println("Game Stats: ");
+        System.out.println("Round Wins: " + intWinRoundCounter + " Round Losses: " + intLoseRoundCounter);
+        System.out.println("Life Bar: " + objProgress.RenderBar());
     }
 
 }
