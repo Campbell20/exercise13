@@ -8,37 +8,41 @@ package com.example;
 */
 public class ProgressBar {
     private String strProgressBar = "[     ]";
-    private int intGuess;
+    private int intCurrentProgress;
 
 
     public ProgressBar() {
-        intGuess = 0;
+
+    }
+
+    public void ResetBar(){
+        intCurrentProgress = 0;
     }
 
     public String RenderBar() {
 
-        if (intGuess == 5){
-            intGuess = 0;
-        } else intGuess++;
+        if (intCurrentProgress == 5){
+            intCurrentProgress = 0;
+        } else intCurrentProgress++;
 
-        while (intGuess < 6) {
+        while (intCurrentProgress < 6) {
 
-            if (intGuess == 0) {
+            if (intCurrentProgress == 0) {
                 strProgressBar = "[     ]";
                 return strProgressBar;
-            } else if (intGuess == 1) {
+            } else if (intCurrentProgress == 1) {
                 strProgressBar = "[X    ]";
                 return strProgressBar;
-            } else if (intGuess == 2) {
+            } else if (intCurrentProgress == 2) {
                 strProgressBar = "[XX   ]";
                 return strProgressBar;
-            } else if (intGuess == 3) {
+            } else if (intCurrentProgress == 3) {
                 strProgressBar = "[XXX  ]";
                 return strProgressBar;
-            } else if (intGuess == 4) {
+            } else if (intCurrentProgress == 4) {
                 strProgressBar = "[XXXX ]";
                 return strProgressBar;
-            } else if (intGuess == 5) {
+            } else if (intCurrentProgress == 5) {
                 strProgressBar = "[XXXXX]";
                 System.out.println("You have guessed quite a few times...");
                 return strProgressBar;
