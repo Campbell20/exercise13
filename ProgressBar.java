@@ -12,12 +12,7 @@ public class ProgressBar {
 
 
     public ProgressBar() {
-        System.out.println(RenderBar());
         intGuess = 0;
-    }
-
-    public int AmountofGuesses(){
-        return intGuess;
     }
 
     public String RenderBar() {
@@ -25,8 +20,6 @@ public class ProgressBar {
         if (intGuess == 5){
             intGuess = 0;
         } else intGuess++;
-
-        System.out.println(intGuess);
 
         while (intGuess < 6) {
 
@@ -47,6 +40,7 @@ public class ProgressBar {
                 return strProgressBar;
             } else if (intGuess == 5) {
                 strProgressBar = "[XXXXX]";
+                System.out.println("You have guessed quite a few times...");
                 return strProgressBar;
             }
         }
