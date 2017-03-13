@@ -3,9 +3,11 @@ package com.example;
 /*
 * Name: John Campbell
 * Section: COSC/ITSE 
-* Homework:
-* Description: 
+* Homework: exercise 13
+* Description: This creates and renders a progress bar for my Hi-Lo Game.
 */
+
+
 public class ProgressBar {
     private String strProgressBar = "[     ]";
     private int intCurrentProgress;
@@ -28,22 +30,22 @@ public class ProgressBar {
         while (intCurrentProgress < 6) {
 
             if (intCurrentProgress == 0) {
-                strProgressBar = "[     ]";
+                strProgressBar = "[XXXXX]";
                 return strProgressBar;
             } else if (intCurrentProgress == 1) {
-                strProgressBar = "[X    ]";
-                return strProgressBar;
-            } else if (intCurrentProgress == 2) {
-                strProgressBar = "[XX   ]";
-                return strProgressBar;
-            } else if (intCurrentProgress == 3) {
-                strProgressBar = "[XXX  ]";
-                return strProgressBar;
-            } else if (intCurrentProgress == 4) {
                 strProgressBar = "[XXXX ]";
                 return strProgressBar;
+            } else if (intCurrentProgress == 2) {
+                strProgressBar = "[XXX  ]";
+                return strProgressBar;
+            } else if (intCurrentProgress == 3) {
+                strProgressBar = "[XX   ]";
+                return strProgressBar;
+            } else if (intCurrentProgress == 4) {
+                strProgressBar = "[X    ]";
+                return strProgressBar;
             } else if (intCurrentProgress == 5) {
-                strProgressBar = "[XXXXX]";
+                strProgressBar = "[     ]";
                 System.out.println("You have guessed quite a few times...");
                 return strProgressBar;
             }

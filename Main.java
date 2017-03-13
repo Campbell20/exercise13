@@ -6,10 +6,9 @@ package com.example;
 * Description:
 */
 public class Main {
-
     public static void main(String[] strArgs) throws InterruptedException{
-        HiLoGame objPlayerOne = new HiLoGame();
-        objPlayerOne.HiLoGame();
+      HiLoGame objHiLoGame = new HiLoGame();
+      objHiLoGame.getClass();
 
 
     }

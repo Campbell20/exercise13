@@ -2,62 +2,92 @@ package com.example;
 
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
+
 
 /*
 * Name: John Campbell
 * Section: COSC/ITSE 
-* Homework:
-* Description: 
+* Homework: exercise 13
+* Description: This class runs the entire game. The game is Hi-Lo and players have to guess a number between 1-100.
+* If they get it right, the win the round. They get 5 chance to get the number right. I can adjust to to anything
+* really. Just having some fun now.
 */
 
 public class HiLoGame {
     private String strInput = "Y";
-    private int intEndRound = 0;
     private int intRoundCounter;
-    private int intPlayerCurrentGuess = 0;
+    private int intWinRoundCounter = 0;
+    private int intLoseRoundCounter = 0;
     private int intCorrectNumber;
-    private int intGuess;
-    private int intMaxGuessesAllowed = 5;
     private int intHighestNumberToGuess = 5;
-
-    Scanner objInput = new Scanner(System.in);
-    Scanner objStrOrIntInput = new Scanner(System.in);
-    ProgressBar objProgress = new ProgressBar();
+    private int intGuessCounter = 0;
+    private int intPlayerCurrentGuess;
+    int intMaxGuessesAllowed = 5;
+    private Random objRandomNumber = new Random();
+    private ProgressBar objProgress = new ProgressBar();
+    private Scanner objStrOrIntInput = new Scanner(System.in);
+    private Scanner objInput = new Scanner(System.in);
 
 
     // constructor for the game
-    public void HiLoGame() throws InterruptedException {
-        //reads the game rules to the player
-        GameRules();
-        //starts the game for the player
-        StartRound();
-        RunRound();
+    public HiLoGame()  {
+         GameRules();
+    }
+
+    //sets the number the player has to guess
+    private void CorrectNumber(int pCorrectNumber){
+        intCorrectNumber = pCorrectNumber;
+    }
+
+    private int CorrectNumber() {
+        // sets the random number for us each round
+        intCorrectNumber = objRandomNumber.nextInt(intHighestNumberToGuess) + 1;
+        return intCorrectNumber;
     }
 
     // game rules for Hi-Lo
-    private void GameRules() throws InterruptedException {
+    private void GameRules() {
         System.out.println("\n" +
                 "\t\t*******************************\n" +
                 "\t\t*          Hi-Lo              *\n" +
                 "\t\t*        The Video Game       *\n" +
-                "\t\t*******************************\n\n");
-        System.out.println("Objective: ");
-        System.out.println("\tYou must guess the correct number from 1 to " + intHighestNumberToGuess + ".");
-        System.out.println("\tYou will be given 20 attempts to guess the right number.");
+                "\t\t*******************************\n");
+
+        System.out.println("Menu: ");
+        System.out.println("Start Game = \"S\" ");
+        System.out.println("Rules = \"R\" ");
+        strInput = objInput.next().toUpperCase();
+       while(true) {
+           if (strInput.equals("S")) {
+               System.out.println("Launching Game...");
+               StartRound();
+           } else if (strInput.equals("R")) {
+               System.out.println("Rules: ");
+               System.out.println("\tYou must guess the correct number from 1 to " + intHighestNumberToGuess + ".");
+               System.out.println("\tIf you guess the correct number, you'll win the round!");
+               System.out.println("\tYou will be given " + intMaxGuessesAllowed + " attempts to guess the right number.");
+               System.out.println("\tThe game will keep tab of your wins and losses.");
+               System.out.println("");
+               System.out.println("Menu: ");
+               System.out.println("Start Game = \"S\" ");
+               System.out.println("Rules = \"R\" ");
+               strInput = objInput.next().toUpperCase();
+           } else {
+               System.out.println("You didn't press a valid key, but we're starting anyway!");
+               StartRound();
+           }
+       }
         //  TimeUnit.SECONDS.sleep(1);
     }
 
     // starts the round
-    private void StartRound() throws InterruptedException {
-        //resetting the end round boolean
-        intEndRound = 0;
-        //reset current guesses
-        intGuess = 0;
+    private void StartRound()  {
+        intGuessCounter = 0;
         // reset the progress bar
         objProgress.ResetBar();
         //adds 1 more to round counter
         intRoundCounter++;
+
        // adding a bit of space between rules/objectives/etc, and game start
         System.out.println("");
         System.out.println("");
@@ -69,61 +99,67 @@ public class HiLoGame {
         // TimeUnit.SECONDS.sleep(2);
         System.out.println("Number set. Can you guess it? Good luck!");
         System.out.println("Round " + intRoundCounter + " Begin!\n");
+        RunRound();
     }
 
     // runs the game
-    private void RunRound() throws InterruptedException {
-        while (intEndRound == 0) {
+    private void RunRound()  {
+        while(true){
+            // cheats
+            //System.out.println("Current Guess: " + intPlayerCurrentGuess);
+            //System.out.println("Guessed Counter: " + intGuessCounter);
+            //System.out.println("Correct Number to Guess: " + intCorrectNumber);
+
+            ToManyGuessesEndRound();
+            PlayerCurrentGuess();
             // checks the value of the player's guess vs the correct number and gives the player some hints or
             // tells them they won. I'd like to adjust this to have random print lines.
             if (intPlayerCurrentGuess < intCorrectNumber) {
-                System.out.println("You're to low! ");
-                GuessCounter();
-                PlayerCurrentGuess();
-                //checks to see if the player guessed to many times
-                ToManyGuessesEndRound();
+                System.out.println("You're to low! \n");
+                System.out.println("Game Stats: ");
+                System.out.println("Round Wins: " + intWinRoundCounter + " Round Losses: " + intLoseRoundCounter);
+                System.out.println("Life Bar: " + objProgress.RenderBar());
+                intGuessCounter++;
+                //objPlayer.CurrentGuess();
             } else if (intPlayerCurrentGuess > intCorrectNumber) {
-                System.out.println("You're to high! ");
-                GuessCounter();
-                PlayerCurrentGuess();
-                //checks to see if the player guessed to many times
-                ToManyGuessesEndRound();
-            } else {
-                GuessCounter();
-                PlayerCurrentGuess();
+                System.out.println("You're to high! \n");
+                System.out.println("Game Stats: ");
+                System.out.println("Round Wins: " + intWinRoundCounter + " Round Losses: " + intLoseRoundCounter);
+                System.out.println("Life Bar: " + objProgress.RenderBar());
+                intGuessCounter++;
+            } else if (intPlayerCurrentGuess == intCorrectNumber) {
+                intGuessCounter++;
                 WonRound();
             }
         }
+
     }
 
-    private void GuessCounter(){
-        //adds 1 more to current guess number
-        intGuess++;
-        //renders the progress bar
-        System.out.println(objProgress.RenderBar());
+    // player wins the round
+    private void WonRound()  {
+        System.out.println("The number was " + intCorrectNumber);
+        System.out.println("You guessed correctly!");
+        System.out.println("It only took you " + intGuessCounter +
+                " guesses until you got the number correct.");
+        System.out.println("");
+        System.out.println("");
+        intWinRoundCounter++;
+        EndRound();
     }
+
     // player guessed to many times
-    private void ToManyGuessesEndRound() throws InterruptedException {
-        if(intGuess == intMaxGuessesAllowed) {
+    private void ToManyGuessesEndRound()  {
+        if(intGuessCounter == intMaxGuessesAllowed) {
             System.out.println("You ran out of guesses and did not guess the random number correctly!");
-            System.out.println("The number was " + intCorrectNumber);
+            System.out.println("The number was " + CorrectNumber());
             System.out.println("");
+            intLoseRoundCounter++;
             EndRound();
         }
     }
 
-    // player wins the round
-    private void WonRound() throws InterruptedException {
-        System.out.println("The number was " + intCorrectNumber);
-        System.out.println("You guessed correctly!");
-        System.out.println("It only took you " + intGuess + " guesses until you got the number correct.");
-        System.out.println("");
-        System.out.println("");
-        EndRound();
-    }
-
-    private void EndRound() throws InterruptedException {
-        intEndRound = 1;
+    // is the round over?
+    private void EndRound() {
         System.out.println("Round " + intRoundCounter + " complete.");
         System.out.println("");
         System.out.println("Did you want to play another round?");
@@ -131,24 +167,26 @@ public class HiLoGame {
         strInput = objInput.next().toUpperCase();
         System.out.println(strInput);
         if (strInput.equals("Y")) {
-            StartRound();
+            GameRules();
         } else
             EndGame();
     }
 
-    private void EndGame() throws InterruptedException {
+    // asks the player if they want to end the game.
+    private void EndGame(){
         System.out.println("Did you want to quit the game?");
         System.out.println("Type \"Y\" to keep playing or anything else to quit.");
         strInput = objInput.next().toUpperCase();
         if (strInput.equals("Y")) {
-           EndRound();
+           StartRound();
         } else
             System.out.println("Good Bye!");
             System.exit(0);
     }
 
+
     //asks the player for a value and ends the round if the player types anything other than a value
-    private void PlayerCurrentGuess() throws InterruptedException {
+    public void PlayerCurrentGuess()  {
         String strPlayerGuessInput;
         // asks the user to guess a number
         System.out.println("What number would you like to guess? ");
@@ -165,18 +203,6 @@ public class HiLoGame {
             System.out.println("This automatically ended the round for you.");
             EndRound();
         }
-    }
-
-//sets the number the player has to guess
-    private void CorrectNumber(int pCorrectNumber){
-        intCorrectNumber = pCorrectNumber;
-    }
-
-    private int CorrectNumber() {
-        // sets the random number for us each round
-        Random objRandomNumber = new Random();
-        intCorrectNumber = objRandomNumber.nextInt(intHighestNumberToGuess) + 1;
-        return intCorrectNumber;
     }
 
 }
