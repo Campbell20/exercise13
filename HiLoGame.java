@@ -27,7 +27,8 @@ public class HiLoGame {
     private int intHighestNumberToGuess = 100; // the highest number the random number generator will create
 
     private Random objRandomNumber = new Random(); // random number generator for number to guess
-    private ProgressBar objProgress = new ProgressBar(); // progess bar
+    private ProgressBar objProgress = new ProgressBar(); // progress bar
+    private Player objPlayerName = new Player(); // for creating a player's name
     private RandomComments objComments = new RandomComments(); // for funny comments
     private Scanner objStrOrIntInput = new Scanner(System.in); //input command for string or int
     private Scanner objInput = new Scanner(System.in); //our input command for everything else
@@ -63,6 +64,9 @@ public class HiLoGame {
         strInput = objInput.next().toUpperCase();
        while(true) {
            if (strInput.equals("S")) {
+               objPlayerName.GetPlayerName();
+               System.out.println("Fine. Let me launch the game for you " + objPlayerName.PlayerNameCalledOut() + ".");
+               System.out.println("You're going to lose anyway. HAH!");
                System.out.println("Launching Game...");
                StartRound();
            } else if (strInput.equals("R")) {
@@ -162,7 +166,7 @@ public class HiLoGame {
 
     // player wins the round
     private void WonRound()  throws InterruptedException {
-        System.out.println("OH NO! I lost!");
+        System.out.println("OH NO! I lost! How could you beat me " + objPlayerName.PlayerNameCalledOut() + "?");
         System.out.println("The number was " + intCorrectNumber);
         System.out.println("You guessed correctly!");
         System.out.println("It only took you " + intGuessCounter +
@@ -176,7 +180,7 @@ public class HiLoGame {
     // player guessed to many times
     private void ToManyGuessesEndRound() throws InterruptedException {
         if(intGuessCounter == intMaxGuessesAllowed) {
-            System.out.println("HAH! I won!");
+            System.out.println("HAH! I won! Better luck next time " + objPlayerName.PlayerNameCalledOut());
             System.out.println("");
             TimeUnit.SECONDS.sleep(2);
             System.out.println("You ran out of guesses and did not guess the random number correctly!");

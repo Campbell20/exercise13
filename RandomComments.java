@@ -11,6 +11,8 @@ import java.util.Random;
 * player if he gets the number wrong.
 */
 public class RandomComments {
+
+    private Player objPlayer = new Player();
     //an ary of comments for missed guesses
     private ArrayList<String> aryMissedGuessRandomComment = new ArrayList<>();
     //an ary of comments for setting the number to guess
@@ -21,25 +23,25 @@ public class RandomComments {
     //this function is where I added all the comments
     public RandomComments(){
         //a list of random comments for missed guesses
-        aryMissedGuessRandomComment.add("What were you thinking?!");
+        aryMissedGuessRandomComment.add(objPlayer.PlayerNameCalledOut() + ", what were you thinking?!");
         aryMissedGuessRandomComment.add("WHA?!");
         aryMissedGuessRandomComment.add("/FACEPALM");
         aryMissedGuessRandomComment.add("DUUUuuuuuddddeeee!?");
-        aryMissedGuessRandomComment.add("Oh My God!");
-        aryMissedGuessRandomComment.add("Are you even trying?");
+        aryMissedGuessRandomComment.add("Oh My God! " + objPlayer.PlayerNameCalledOut());
+        aryMissedGuessRandomComment.add("Are you even trying " + objPlayer.PlayerNameCalledOut() + "?");
         aryMissedGuessRandomComment.add("Not even close... HA!");
         aryMissedGuessRandomComment.add("WRONG!!");
-        aryMissedGuessRandomComment.add("Come on now...");
+        aryMissedGuessRandomComment.add("Come on now " + objPlayer.PlayerNameCalledOut() + "...");
         aryMissedGuessRandomComment.add("Nope!");
-        aryMissedGuessRandomComment.add("NNOOIiiicceee! Is what I would have said... if you had got the number right.");
-        aryMissedGuessRandomComment.add("Ummm?");
+        aryMissedGuessRandomComment.add("NNOOIiiicceee! Is what I would have said... Had got the number right.");
+        aryMissedGuessRandomComment.add("Ummm? Hello?");
         aryMissedGuessRandomComment.add("Criminal... How could you?");
-        aryMissedGuessRandomComment.add("Are you mistreating me?");
+        aryMissedGuessRandomComment.add("Are you mistreating me " + objPlayer.PlayerNameCalledOut() + "?");
 
         //a list of random comments for setting the number to guess
         arySetNumberRandomComment.add("Oh boy, you won't be able to guess this!");
         arySetNumberRandomComment.add("Hmm, I know what number you think I'm going to select... so I'm selecting" +
-                "This one instead!");
+                " this one instead!");
         arySetNumberRandomComment.add("Let's see... Oh yes; this is good number. HAHA!");
         arySetNumberRandomComment.add("Hmmm...");
         arySetNumberRandomComment.add("I bet you won't be able to guess this one...");
