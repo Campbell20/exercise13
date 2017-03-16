@@ -7,7 +7,7 @@ package com.example;
 * so far.
 */
 public class Main {
-    public static void main(String[] strArgs){
+    public static void main(String[] strArgs) throws InterruptedException {
       HiLoGame objHiLoGame = new HiLoGame();
       objHiLoGame.getClass();
 
