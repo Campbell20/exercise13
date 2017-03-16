@@ -10,7 +10,7 @@ import java.util.Scanner;
  * them using their name.
 */
 public class Player {
-    private String strPlayerName = "";
+    private String strPlayerName = "John";
     private String strAccept = "N";
     private Scanner objInput = new Scanner(System.in);
 
@@ -21,7 +21,7 @@ public class Player {
     // create player name from their input
     private String PlayerNameFromInput() {
         while (strAccept.equals("N")) {
-            System.out.println("What is your name player?");
+            System.out.println("What is your name, player?");
             strPlayerName = objInput.next();
             System.out.println("Player name set as: " + strPlayerName);
             System.out.println("Is this correct? Type \"Y\" to accept or anything else to retype your name");

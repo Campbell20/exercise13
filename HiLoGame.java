@@ -20,15 +20,15 @@ public class HiLoGame {
     private int intWinRoundCounter = 0; // a counter for each win the player gets
     private int intLoseRoundCounter = 0; // a counter for each loss the player gets
     private int intGuessCounter = 0;  // a counter for the amount of guesses of a round
-    int intTotalGuessesCounter = 0; //a counter for the total amount of guess for the entire game
-    int intMaxGuessesAllowed = 10; // how many guesses does the player get? ADJUST ProgressBar.java as well!!!
+    private int intTotalGuessesCounter = 0; //a counter for the total amount of guess for the entire game
+    private int intMaxGuessesAllowed = 10; // how many guesses does the player get? ADJUST ProgressBar.java as well!!!
     private int intPlayerCurrentGuess; // player's current guessed number
     private int intCorrectNumber;  // the variable for the number the player needs to guess
     private int intHighestNumberToGuess = 100; // the highest number the random number generator will create
 
     private Random objRandomNumber = new Random(); // random number generator for number to guess
     private ProgressBar objProgress = new ProgressBar(); // progress bar
-    private Player objPlayerName = new Player(); // for creating a player's name
+    public Player objPlayerName = new Player(); // for creating a player's name
     private RandomComments objComments = new RandomComments(); // for funny comments
     private Scanner objStrOrIntInput = new Scanner(System.in); //input command for string or int
     private Scanner objInput = new Scanner(System.in); //our input command for everything else
@@ -53,10 +53,58 @@ public class HiLoGame {
     // starts the game
     private void StartGame() throws InterruptedException{
         System.out.println("\n" +
-                "\t\t*******************************\n" +
-                "\t\t*          Hi-Lo              *\n" +
-                "\t\t*        The Video Game       *\n" +
-                "\t\t*******************************\n");
+                "\t\t********************************\n" +
+                "\t\t*            Hi-Lo             *\n" +
+                "\t\t*        The Video Game        *\n" +
+                "\t\t********************************\n");
+        System.out.println("Or as I like to call it, the game of \"Can't Guess the Computer's Number!\"");
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("WWWHHhhaaaattt?");
+        TimeUnit.SECONDS.sleep(2);
+        System.out.println("Fine.");
+        TimeUnit.SECONDS.sleep(2);
+        System.out.println("Let me load the menu for you...");
+        TimeUnit.SECONDS.sleep(2);
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+
+        System.out.println("\n" +
+                "\t\t********************************\n" +
+                "\t\t*            Hi-Lo             *\n" +
+                "\t\t*        The Video Game        *\n" +
+                "\t\t********************************\n");
 
         System.out.println("Menu: ");
         System.out.println("Start Game = \"S\" ");
@@ -64,10 +112,14 @@ public class HiLoGame {
         strInput = objInput.next().toUpperCase();
        while(true) {
            if (strInput.equals("S")) {
+
                objPlayerName.GetPlayerName();
-               System.out.println("Fine. Let me launch the game for you " + objPlayerName.PlayerNameCalledOut() + ".");
-               System.out.println("You're going to lose anyway. HAH!");
-               System.out.println("Launching Game...");
+               System.out.println("Oooo...Kay \"" + objPlayerName.PlayerNameCalledOut() + "\".");
+               System.out.println("I'm setting your name now.");
+               System.out.println("It won't matter though, cause the crowd will be calling " +
+                       "my name not yours, after I beat you in Hi-Lo.");
+               System.out.println("Launching the game for you " + objPlayerName.PlayerNameCalledOut() + ".");
+               System.out.println("Here we go...");
                StartRound();
            } else if (strInput.equals("R")) {
                System.out.println("Rules: ");
@@ -167,9 +219,9 @@ public class HiLoGame {
     // player wins the round
     private void WonRound()  throws InterruptedException {
         System.out.println("OH NO! I lost! How could you beat me " + objPlayerName.PlayerNameCalledOut() + "?");
-        System.out.println("The number was " + intCorrectNumber);
+        System.out.println("The number was " + intCorrectNumber + ".");
         System.out.println("You guessed correctly!");
-        System.out.println("It only took you " + intGuessCounter +
+        System.out.println("Still... It took you " + intGuessCounter +
                 " guesses until you got the number correct.");
         System.out.println("");
         System.out.println("");
@@ -197,25 +249,32 @@ public class HiLoGame {
         System.out.println("");
         // shows the player's stats
         PlayerStats();
-        System.out.println("Did you want to play another round?");
+        System.out.println(objPlayerName.PlayerNameCalledOut() + ", did you want to play another round?");
         System.out.println("Type \"Y\" to keep playing or anything else to quit.");
         strInput = objInput.next().toUpperCase();
         System.out.println(strInput);
         if (strInput.equals("Y")) {
+            System.out.println("Awesome! Then let's keep playing.");
+            System.out.println("Starting another round for you...");
+            TimeUnit.SECONDS.sleep(1);
             StartRound();
         } else
+            System.out.println("It's okay, I already knew I was smarter than you.");
+            System.out.print("We can play again another time.\n");
             EndGame();
     }
 
     // asks the player if they want to end the game.
     private void EndGame() throws InterruptedException {
-        System.out.println("Did you want to quit the game?");
+        System.out.println("Did you REALLY want to quit the game?");
         System.out.println("Type \"Y\" to keep playing or anything else to quit.");
         strInput = objInput.next().toUpperCase();
         if (strInput.equals("Y")) {
+            System.out.println("Nice! I'll start another round for you then, " +
+                    objPlayerName.PlayerNameCalledOut() + ".");
            StartRound();
         } else
-            System.out.println("Good Bye!");
+            System.out.println("Good bye " + objPlayerName.PlayerNameCalledOut() + "!");
             System.exit(0);
     }
 
@@ -250,5 +309,6 @@ public class HiLoGame {
         System.out.println("Total Guesses used: " + intTotalGuessesCounter);
 
     }
+
 
 }

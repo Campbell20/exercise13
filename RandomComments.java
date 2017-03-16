@@ -11,8 +11,8 @@ import java.util.Random;
 * player if he gets the number wrong.
 */
 public class RandomComments {
-
-    private Player objPlayer = new Player();
+    // getting the player's name for some of the random comments
+    private Player objPlayersName = new Player();
     //an ary of comments for missed guesses
     private ArrayList<String> aryMissedGuessRandomComment = new ArrayList<>();
     //an ary of comments for setting the number to guess
@@ -20,23 +20,24 @@ public class RandomComments {
     //an ary of comments for guessing the correct number
     private ArrayList<String> aryGuessedCorrectlyRandomComment = new ArrayList<>();
 
-    //this function is where I added all the comments
-    public RandomComments(){
+    //using the contstructor as a location for all of the random comments
+    public RandomComments() throws InterruptedException {
         //a list of random comments for missed guesses
-        aryMissedGuessRandomComment.add(objPlayer.PlayerNameCalledOut() + ", what were you thinking?!");
-        aryMissedGuessRandomComment.add("WHA?!");
-        aryMissedGuessRandomComment.add("/FACEPALM");
+        aryMissedGuessRandomComment.add(objPlayersName.PlayerNameCalledOut() + ", what were you thinking?!");
+        aryMissedGuessRandomComment.add("WHA?! HAHA!");
+        aryMissedGuessRandomComment.add("Maybe I made this too hard for you?");
         aryMissedGuessRandomComment.add("DUUUuuuuuddddeeee!?");
-        aryMissedGuessRandomComment.add("Oh My God! " + objPlayer.PlayerNameCalledOut());
-        aryMissedGuessRandomComment.add("Are you even trying " + objPlayer.PlayerNameCalledOut() + "?");
+        aryMissedGuessRandomComment.add("Oh my god " + objPlayersName.PlayerNameCalledOut() + " You're not even " +
+                        "guessing, are you?");
+        aryMissedGuessRandomComment.add("Are you even trying " + objPlayersName.PlayerNameCalledOut() + "?");
         aryMissedGuessRandomComment.add("Not even close... HA!");
         aryMissedGuessRandomComment.add("WRONG!!");
-        aryMissedGuessRandomComment.add("Come on now " + objPlayer.PlayerNameCalledOut() + "...");
+        aryMissedGuessRandomComment.add("Come on now " + objPlayersName.PlayerNameCalledOut() + "...");
         aryMissedGuessRandomComment.add("Nope!");
-        aryMissedGuessRandomComment.add("NNOOIiiicceee! Is what I would have said... Had got the number right.");
+        aryMissedGuessRandomComment.add("NNIiiicceee! Is what I would have said... Had you got the number right.");
         aryMissedGuessRandomComment.add("Ummm? Hello?");
-        aryMissedGuessRandomComment.add("Criminal... How could you?");
-        aryMissedGuessRandomComment.add("Are you mistreating me " + objPlayer.PlayerNameCalledOut() + "?");
+        aryMissedGuessRandomComment.add("Getting warmer...");
+        aryMissedGuessRandomComment.add("Are you wasting my time " + objPlayersName.PlayerNameCalledOut() + "?");
 
         //a list of random comments for setting the number to guess
         arySetNumberRandomComment.add("Oh boy, you won't be able to guess this!");
@@ -59,25 +60,27 @@ public class RandomComments {
         aryGuessedCorrectlyRandomComment.add("Nice work!");
     }
 
-    // this function gets a random comment for me to send to the user
+    // this function gets a random comment for me to send to the user when they guess wrong
     public String GetAMissedGuessComment() {
         int intRandomComment;
         Random objRandomComment = new Random();
-        intRandomComment = objRandomComment.nextInt(14) + 1;
+        intRandomComment = objRandomComment.nextInt(13);
         return aryMissedGuessRandomComment.get(intRandomComment);
     }
 
+    // this function gets a random comment for me to send to the user when the computer sets a random number
     public String GetARandomNumberComment(){
         int intRandomComment;
         Random objRandomComment = new Random();
-        intRandomComment = objRandomComment.nextInt(8) + 1;
+        intRandomComment = objRandomComment.nextInt(7);
         return arySetNumberRandomComment.get(intRandomComment);
     }
 
+    // this function gets a random comment for me to send to the user when they guessed the number correctly
     public String GetAGuessedCorrectlyComment(){
         int intRandomComment;
         Random objRandomComment = new Random();
-        intRandomComment = objRandomComment.nextInt(7) + 1;
+        intRandomComment = objRandomComment.nextInt(7);
         return aryGuessedCorrectlyRandomComment.get(intRandomComment);
     }
 }
